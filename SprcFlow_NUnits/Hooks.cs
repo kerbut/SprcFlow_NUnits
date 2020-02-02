@@ -50,9 +50,6 @@ namespace SprcFlow_NUnits
         {
             var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
 
-            PropertyInfo pInfo = typeof(ScenarioContext).GetProperty("TestStatus", BindingFlags.Instance | BindingFlags.NonPublic);
-            MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
-            object TestResult = getter.Invoke(ScenarioContext.Current, null);
 
             if (ScenarioContext.Current.TestError == null)
             {
@@ -90,22 +87,7 @@ namespace SprcFlow_NUnits
             }
 
             //Pending Status
-            if(TestResult.ToString() == "StepDefinitionPending")
-            {
-                if (stepType == "Given")
-                {
-                    scenario.CreateNode<Given>(ScenarioStepContext.Current.StepInfo.Text).Skip("Step Definition Pending");
-                }
-                else if (stepType == "When")
-                {
-                    scenario.CreateNode<When>(ScenarioStepContext.Current.StepInfo.Text).Skip("Step Definition Pending");
-                }
-                else if (stepType == "Then")
-                {
-
-                    scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Skip("Step Definition Pending");
-                }
-            }
+           
         }
 
         [BeforeScenario]
